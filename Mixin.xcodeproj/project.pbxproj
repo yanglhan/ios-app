@@ -1615,9 +1615,9 @@
 				7BD97DD62179DDD600FAE490 /* IceServer.swift */,
 				7BD97DD42179DD3400FAE490 /* WebRTCClient.swift */,
 				7BF7837A2179D1AF00BECB4B /* Call.swift */,
-				7B08CD2B2178700C00FB8CCF /* CallManager.swift */,
 				7B7E7143217D87860052C7DD /* CallView.xib */,
 				7B7E7145217D89790052C7DD /* CallView.swift */,
+				7B08CD2B2178700C00FB8CCF /* CallManager.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";

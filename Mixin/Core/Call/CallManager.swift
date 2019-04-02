@@ -132,7 +132,7 @@ class CallManager {
             self.rtcClient.set(remoteSdp: sdp) { (error) in
                 if let error = error {
                     self.queue.async {
-                        self.failCurrentCall(sendFailedMesasgeToRemote: true,
+                        self.failCurrentCall(sendFailedMessageToRemote: true,
                                              reportAction: "Set remote Sdp",
                                              description: error.localizedDescription)
                     }
@@ -149,7 +149,7 @@ class CallManager {
                                                                       ownerUser: call.opponentUser,
                                                                       isGroupMessage: false)
                             } else {
-                                self.failCurrentCall(sendFailedMesasgeToRemote: true,
+                                self.failCurrentCall(sendFailedMessageToRemote: true,
                                                      reportAction: "Answer construction",
                                                      description: error.debugDescription)
                             }
@@ -286,7 +286,7 @@ extension CallManager {
             rtcClient.set(remoteSdp: sdp) { (error) in
                 if let error = error {
                     self.queue.async {
-                        self.failCurrentCall(sendFailedMesasgeToRemote: true,
+                        self.failCurrentCall(sendFailedMessageToRemote: true,
                                              reportAction: "Set remote answer",
                                              description: error.localizedDescription)
                     }
@@ -333,7 +333,7 @@ extension CallManager: WebRTCClientDelegate {
     
     func webRTCClientDidFailed(_ client: WebRTCClient) {
         queue.async {
-            self.failCurrentCall(sendFailedMesasgeToRemote: true,
+            self.failCurrentCall(sendFailedMessageToRemote: true,
                                  reportAction: "RTC Client fail",
                                  description: "")
         }
@@ -416,7 +416,7 @@ extension CallManager {
             self.rtcClient.offer { (sdp, error) in
                 guard let sdp = sdp else {
                     self.queue.async {
-                        self.failCurrentCall(sendFailedMesasgeToRemote: false,
+                        self.failCurrentCall(sendFailedMessageToRemote: false,
                                              reportAction: "SDP Construction",
                                              description: error.debugDescription)
                     }
@@ -424,7 +424,7 @@ extension CallManager {
                 }
                 guard let content = sdp.jsonString else {
                     self.queue.async {
-                        self.failCurrentCall(sendFailedMesasgeToRemote: false,
+                        self.failCurrentCall(sendFailedMessageToRemote: false,
                                              reportAction: "SDP Serialization",
                                              description: sdp.debugDescription)
                     }
@@ -440,11 +440,11 @@ extension CallManager {
         }
     }
     
-    private func failCurrentCall(sendFailedMesasgeToRemote: Bool, reportAction action: String, description: String) {
+    private func failCurrentCall(sendFailedMessageToRemote: Bool, reportAction action: String, description: String) {
         guard let call = call else {
             return
         }
-        if sendFailedMesasgeToRemote {
+        if sendFailedMessageToRemote {
             let msg = Message.createWebRTCMessage(conversationId: call.conversationId,
                                                   category: .WEBRTC_AUDIO_FAILED,
                                                   status: .SENDING,
