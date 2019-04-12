@@ -19,7 +19,7 @@ class CallView: UIVisualEffectView {
     
     weak var manager: CallManager!
     
-    var style = Style.calling {
+    var style = Style.disconnecting {
         didSet {
             layout(for: style)
         }
@@ -28,9 +28,6 @@ class CallView: UIVisualEffectView {
     private let animationDuration: TimeInterval = 0.3
     
     private var timer: Timer?
-    private var isOutgoing: Bool {
-        return manager.call?.isOutgoing ?? true
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,6 +43,9 @@ class CallView: UIVisualEffectView {
         guard let window = AppDelegate.current.window else {
             return
         }
+        guard !isDescendant(of: window) else {
+            return
+        }
         window.endEditing(true)
         frame = window.bounds
         window.addSubview(self)
@@ -57,6 +57,7 @@ class CallView: UIVisualEffectView {
     }
     
     func reload(user: UserItem) {
+        avatarImageView.sd_cancelCurrentImageLoad()
         avatarImageView.setImage(with: user)
         nameLabel.text = user.fullName
         muteButton.isSelected = false
@@ -64,21 +65,21 @@ class CallView: UIVisualEffectView {
     }
     
     @IBAction func hangUpAction(_ sender: Any) {
-        manager.completeCurrentCall(isUserInitiated: true)
+        manager.requestEndCall()
     }
     
     @IBAction func acceptAction(_ sender: Any) {
-        manager.acceptCurrentCall()
+        manager.requestAnswerCall()
     }
     
     @IBAction func setMuteAction(_ sender: Any) {
         muteButton.isSelected = !muteButton.isSelected
-        manager.isMuted = muteButton.isSelected
+        manager.requestSetMute(muteButton.isSelected)
     }
     
     @IBAction func setSpeakerAction(_ sender: Any) {
         speakerButton.isSelected = !speakerButton.isSelected
-        manager.usesSpeaker = speakerButton.isSelected
+        manager.setOverridePortToSpeaker(speakerButton.isSelected)
     }
     
 }
@@ -86,7 +87,8 @@ class CallView: UIVisualEffectView {
 extension CallView {
     
     enum Style {
-        case calling
+        case incoming
+        case outgoing
         case connecting
         case connected
         case disconnecting
@@ -94,8 +96,10 @@ extension CallView {
     
     private var localizedStatus: String? {
         switch style {
-        case .calling:
-            return isOutgoing ? Localized.CALL_STATUS_CALLING : Localized.CALL_STATUS_BEING_CALLING
+        case .incoming:
+            return Localized.CALL_STATUS_BEING_CALLING
+        case .outgoing:
+            return Localized.CALL_STATUS_CALLING
         case .connecting:
             return Localized.CALL_STATUS_CONNECTING
         case .connected:
@@ -115,12 +119,15 @@ extension CallView {
     }
     
     private func loadSubviews() {
+        frame = AppDelegate.current.window!.bounds
         layoutMargins = .zero
         let nibName = String(describing: type(of: self))
         if let xibView = Bundle.main.loadNibNamed(nibName, owner: self, options: nil)?.first as? UIView {
             xibView.frame = bounds
             contentView.addSubview(xibView)
         }
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
     private func layout(for style: Style) {
@@ -130,10 +137,15 @@ extension CallView {
             statusLabel.text = localizedStatus
         }
         switch style {
-        case .calling:
-            hangUpTitleLabel.text = isOutgoing ? Localized.CALL_FUNC_HANGUP : Localized.CALL_FUNC_DECLINE
+        case .incoming:
+            hangUpTitleLabel.text = Localized.CALL_FUNC_DECLINE
             setFunctionSwitchesHidden(true)
-            setAcceptButtonHidden(isOutgoing)
+            setAcceptButtonHidden(false)
+            setConnectionButtonsEnabled(true)
+        case .outgoing:
+            hangUpTitleLabel.text = Localized.CALL_FUNC_HANGUP
+            setFunctionSwitchesHidden(true)
+            setAcceptButtonHidden(true)
             setConnectionButtonsEnabled(true)
         case .connecting:
             hangUpTitleLabel.text = Localized.CALL_FUNC_HANGUP

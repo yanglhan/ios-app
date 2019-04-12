@@ -155,7 +155,7 @@ class ReceiveMessageService: MixinService {
                     } else {
                         listPendingCandidates[data.quoteMessageId]!.append(data)
                     }
-                } else if CallManager.completeCallCategories.contains(category) {
+                } else if CallManager.callEndedCategories.contains(category) {
                     workItem.cancel()
                     listPendingCallWorkItems.removeValue(forKey: data.quoteMessageId)
                     listPendingCandidates.removeValue(forKey: data.quoteMessageId)

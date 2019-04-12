@@ -134,7 +134,6 @@ extension WebRTCClient {
         guard self.peerConnection == nil else {
             return
         }
-        RTCAudioSession.sharedInstance().useManualAudio = true
         let constraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: [:])
         let peerConnection = factory.peerConnection(with: sharedConfig,
                                                     constraints: constraints,

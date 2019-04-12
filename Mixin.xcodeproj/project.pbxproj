@@ -201,6 +201,9 @@
 		7B98638F1FA313D300D4B16C /* BottomWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98638E1FA313D300D4B16C /* BottomWrapperView.swift */; };
 		7B9863911FA313E300D4B16C /* BottomWrapperView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B9863901FA313E300D4B16C /* BottomWrapperView.xib */; };
 		7B9863931FA3141F00D4B16C /* XibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9863921FA3141F00D4B16C /* XibDesignable.swift */; };
+		7B98DD002256099D00796369 /* CallInterfaceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98DCFF2256099D00796369 /* CallInterfaceAdapter.swift */; };
+		7B98DD02225609EC00796369 /* CallKitCallInterfaceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98DD01225609EC00796369 /* CallKitCallInterfaceAdapter.swift */; };
+		7B98DD0422560A0000796369 /* NativeCallInterfaceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98DD0322560A0000796369 /* NativeCallInterfaceAdapter.swift */; };
 		7B9916D421945A6800C11401 /* WalletAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9916D321945A6800C11401 /* WalletAssetCell.swift */; };
 		7B99768B210870DC002D48D8 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B99768A210870DC002D48D8 /* CurrencyFormatter.swift */; };
 		7B9A2BD12023729E00135DA4 /* AppButtonGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A2BD02023729E00135DA4 /* AppButtonGroupViewModel.swift */; };
@@ -821,6 +824,9 @@
 		7B98638E1FA313D300D4B16C /* BottomWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomWrapperView.swift; sourceTree = "<group>"; };
 		7B9863901FA313E300D4B16C /* BottomWrapperView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomWrapperView.xib; sourceTree = "<group>"; };
 		7B9863921FA3141F00D4B16C /* XibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XibDesignable.swift; sourceTree = "<group>"; };
+		7B98DCFF2256099D00796369 /* CallInterfaceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallInterfaceAdapter.swift; sourceTree = "<group>"; };
+		7B98DD01225609EC00796369 /* CallKitCallInterfaceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallKitCallInterfaceAdapter.swift; sourceTree = "<group>"; };
+		7B98DD0322560A0000796369 /* NativeCallInterfaceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeCallInterfaceAdapter.swift; sourceTree = "<group>"; };
 		7B9916D321945A6800C11401 /* WalletAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAssetCell.swift; sourceTree = "<group>"; };
 		7B99768A210870DC002D48D8 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		7B9A2BD02023729E00135DA4 /* AppButtonGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButtonGroupViewModel.swift; sourceTree = "<group>"; };
@@ -1618,6 +1624,9 @@
 				7B7E7143217D87860052C7DD /* CallView.xib */,
 				7B7E7145217D89790052C7DD /* CallView.swift */,
 				7B08CD2B2178700C00FB8CCF /* CallManager.swift */,
+				7B98DCFF2256099D00796369 /* CallInterfaceAdapter.swift */,
+				7B98DD01225609EC00796369 /* CallKitCallInterfaceAdapter.swift */,
+				7B98DD0322560A0000796369 /* NativeCallInterfaceAdapter.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -3115,6 +3124,7 @@
 				7B9916D421945A6800C11401 /* WalletAssetCell.swift in Sources */,
 				7BAD3339216E1DFA006C0309 /* RTCSessionDescription+JSON.swift in Sources */,
 				DFE1F9851FAB52CE00537D43 /* ContainerViewController.swift in Sources */,
+				7B98DD02225609EC00796369 /* CallKitCallInterfaceAdapter.swift in Sources */,
 				DF8DA1851FD1B42100425CEC /* BaseJob.swift in Sources */,
 				7B0BE46421A59AE400B91A1E /* RefreshTopAssetsJob.swift in Sources */,
 				DFA5B5871FADBE7D00549728 /* AddMemberViewController.swift in Sources */,
@@ -3182,6 +3192,7 @@
 				DF121F2E1FA1C244000F701D /* ConversationDAO.swift in Sources */,
 				DF22D94D1FDE500500243CAE /* SystemConversationData.swift in Sources */,
 				DF8CECF21FC4256D00E40064 /* BlockUserCell.swift in Sources */,
+				7B98DD0422560A0000796369 /* NativeCallInterfaceAdapter.swift in Sources */,
 				DF03C85D1FF2BE6500C1ED6B /* MessageHistoryDAO.swift in Sources */,
 				7BD7534E2182CDCE00BAC172 /* CallMessageCell.swift in Sources */,
 				27D6E8D22045473300BA678A /* TransferMessage.swift in Sources */,
@@ -3220,6 +3231,7 @@
 				DF8CECE51FC3177100E40064 /* BottomSheetView.swift in Sources */,
 				DF8DA1A81FD6783200425CEC /* ConversationAPI.swift in Sources */,
 				DF503D301FECF6F000C008E7 /* SenderKeyDAO.swift in Sources */,
+				7B98DD002256099D00796369 /* CallInterfaceAdapter.swift in Sources */,
 				7BAD2E55207DE046006D7887 /* UnreadHintMessageCell.swift in Sources */,
 				DFB2062821ABC088006E4341 /* RestoreViewController.swift in Sources */,
 				DFD294371FA6EF4500FADAAD /* DateExtension.swift in Sources */,
